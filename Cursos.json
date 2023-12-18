@@ -21,6 +21,10 @@
             "Nombre": "Sistemas de bases de datos 2"
         },
         {
+            "Codigo": "0777",
+            "Nombre": "Organizacion de Lenguajes De Compiladores 1"
+        },
+        {
             "Codigo": "0781",
             "Nombre": "Organizacion de Lenguajes De Compiladores 2"
         }

@@ -77,8 +77,8 @@ func (l *ListaDoble) LeerCSV(ruta string) {
 }
 
 func (l *ListaDoble) ReporteListaDoble() {
-	nombreArchivo := "./listadoble.dot"
-	nombreImagen := "./listadoble.jpg"
+	nombreArchivo := "./ReporteEstudiantes.dot"
+	nombreImagen := "./ReporteEstudiantes.jpg"
 	texto := "digraph lista{\n"
 	texto += "rankdir=LR;\n"
 	texto += "node[shape = record, style=\"filled\", fillcolor=\"#FFDDC1\", fontname=\"Arial\"];\n"

@@ -17,12 +17,14 @@ func (c *Cola) Encolar(carnet int, nombre string, curso string, nota int) {
 	nuevoTutor := &Tutores{Carnet: carnet, Nombre: nombre, Curso: curso, Nota: nota}
 	nuevoNodo := &NodoCola{Tutor: nuevoTutor, Siguiente: nil, Prioridad: 0}
 
-	if nota >= 85 && nota <= 100 {
+	if nota >= 90 && nota <= 100 {
 		nuevoNodo.Prioridad = 1
-	} else if nota >= 70 && nota <= 84 {
+	} else if nota >= 75 && nota <= 89 {
 		nuevoNodo.Prioridad = 2
-	} else if nota >= 61 && nota <= 69 {
+	} else if nota >= 65 && nota <= 74 {
 		nuevoNodo.Prioridad = 3
+	} else if nota >= 61 && nota <= 64 {
+		nuevoNodo.Prioridad = 4
 	} else {
 		return
 	}
@@ -113,4 +115,56 @@ func (c *Cola) Primero_Cola() {
 		}
 		fmt.Println("╚════════════════════════════════════════════╝")
 	}
+}
+
+func (c *Cola) OrdenarPorPrioridad() {
+	if c.Longitud <= 1 {
+		return
+	}
+	nodosOrdenados := make([]*NodoCola, c.Longitud)
+	aux := c.Primero
+	for i := 0; i < c.Longitud; i++ {
+		nodosOrdenados[i] = aux
+		aux = aux.Siguiente
+	}
+	for i := 0; i < c.Longitud-1; i++ {
+		for j := 0; j < c.Longitud-i-1; j++ {
+			if nodosOrdenados[j].Prioridad > nodosOrdenados[j+1].Prioridad {
+				nodosOrdenados[j], nodosOrdenados[j+1] = nodosOrdenados[j+1], nodosOrdenados[j]
+			}
+		}
+	}
+	c.Primero = nodosOrdenados[0]
+	aux = c.Primero
+	for i := 1; i < c.Longitud; i++ {
+		aux.Siguiente = nodosOrdenados[i]
+		aux = aux.Siguiente
+	}
+	aux.Siguiente = nil
+}
+
+func (c *Cola) OrdenarPorNota() {
+	if c.Longitud <= 1 {
+		return
+	}
+	nodosOrdenados := make([]*NodoCola, c.Longitud)
+	aux := c.Primero
+	for i := 0; i < c.Longitud; i++ {
+		nodosOrdenados[i] = aux
+		aux = aux.Siguiente
+	}
+	for i := 0; i < c.Longitud-1; i++ {
+		for j := 0; j < c.Longitud-i-1; j++ {
+			if nodosOrdenados[j].Tutor.Nota < nodosOrdenados[j+1].Tutor.Nota {
+				nodosOrdenados[j], nodosOrdenados[j+1] = nodosOrdenados[j+1], nodosOrdenados[j]
+			}
+		}
+	}
+	c.Primero = nodosOrdenados[0]
+	aux = c.Primero
+	for i := 1; i < c.Longitud; i++ {
+		aux.Siguiente = nodosOrdenados[i]
+		aux = aux.Siguiente
+	}
+	aux.Siguiente = nil
 }

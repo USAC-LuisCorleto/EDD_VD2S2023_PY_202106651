@@ -137,8 +137,8 @@ func (a *ArbolAVL) LeerJson(ruta string) {
 
 func (a *ArbolAVL) ReporteArbolAVL() {
 	cadena := ""
-	nombre_archivo := "./ArbolAVL.dot"
-	nombre_imagen := "ArbolAVL.jpg"
+	nombre_archivo := "./ReporteCursos.dot"
+	nombre_imagen := "ReporteCursos.jpg"
 	if a.Raiz != nil {
 		cadena += "digraph arbol{ "
 		cadena += a.retornarValoresArbol(a.Raiz, 0)

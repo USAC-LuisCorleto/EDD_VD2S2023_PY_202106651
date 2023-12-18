@@ -138,8 +138,8 @@ func (l *ListaDobleCircular) Eliminar(carnet int) {
 }
 
 func (l *ListaDoble) ReporteListaDobleCircular() {
-	nombreArchivo := "./listadoblecircular.dot"
-	nombreImagen := "./listadoblecircular.jpg"
+	nombreArchivo := "./ReporteTutores.dot"
+	nombreImagen := "./ReporteTutores.jpg"
 	texto := "digraph lista{\n"
 	texto += "rankdir=LR;\n"
 	texto += "node[shape = record];\n"
