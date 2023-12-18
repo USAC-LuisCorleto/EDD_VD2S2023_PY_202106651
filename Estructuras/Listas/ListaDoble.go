@@ -1,6 +1,7 @@
 package Listas
 
 import (
+	"EDD_VD2S2023_PY_202106651/Estructuras/GenerarArchivos"
 	"encoding/csv"
 	"fmt"
 	"io"
@@ -73,4 +74,32 @@ func (l *ListaDoble) LeerCSV(ruta string) {
 		valor, _ := strconv.Atoi(linea[0])
 		l.Agregar(valor, linea[1])
 	}
+}
+
+func (l *ListaDoble) ReporteListaDoble() {
+	nombreArchivo := "./listadoble.dot"
+	nombreImagen := "./listadoble.jpg"
+	texto := "digraph lista{\n"
+	texto += "rankdir=LR;\n"
+	texto += "node[shape = record, style=\"filled\", fillcolor=\"#FFDDC1\", fontname=\"Arial\"];\n"
+	texto += "nodonull1[label=\"null\", shape=plaintext];\n"
+	texto += "nodonull2[label=\"null\", shape=plaintext];\n"
+	aux := l.Inicio
+	contador := 0
+	texto += "nodonull1->nodo0 [dir=back];\n"
+	for i := 0; i < l.Longitud; i++ {
+		texto += "nodo" + strconv.Itoa(i) + "[label=\"" + strconv.Itoa(aux.Alumno.Carnet) + "\", style=\"filled\", fillcolor=\"#87CEEB\"];\n"
+		aux = aux.Siguiente
+	}
+	for i := 0; i < l.Longitud-1; i++ {
+		c := i + 1
+		texto += "nodo" + strconv.Itoa(i) + "->nodo" + strconv.Itoa(c) + ";\n"
+		texto += "nodo" + strconv.Itoa(c) + "->nodo" + strconv.Itoa(i) + ";\n"
+		contador = c
+	}
+	texto += "nodo" + strconv.Itoa(contador) + "->nodonull2;\n"
+	texto += "}"
+	GenerarArchivos.CrearArchivo(nombreArchivo)
+	GenerarArchivos.EscribirArchivo(texto, nombreArchivo)
+	GenerarArchivos.Ejecutar(nombreImagen, nombreArchivo)
 }

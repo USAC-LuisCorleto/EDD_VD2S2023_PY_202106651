@@ -94,17 +94,23 @@ func (c *Cola) LeerCSV(ruta string) {
 
 func (c *Cola) Primero_Cola() {
 	if c.Longitud == 0 {
-		fmt.Println("No hay mas Tutores")
+		fmt.Println("╔════════════════════════════════════════════╗")
+		fmt.Println("║         No hay más Tutores en la Cola      ║")
+		fmt.Println("╚════════════════════════════════════════════╝")
 	} else {
-		fmt.Println("Actual: ", c.Primero.Tutor.Carnet)
-		fmt.Println("Nombre: ", c.Primero.Tutor.Nombre)
-		fmt.Println("Curso: ", c.Primero.Tutor.Curso)
-		fmt.Println("Nota: ", c.Primero.Tutor.Nota)
-		fmt.Println("Prioridad: ", c.Primero.Prioridad)
+		fmt.Println("╔════════════════════════════════════════════╗")
+		fmt.Println("║            Información del Tutor           ║")
+		fmt.Println("╠════════════════════════════════════════════╣")
+		fmt.Println("║ Actual: ", c.Primero.Tutor.Carnet)
+		fmt.Println("║ Nombre: ", c.Primero.Tutor.Nombre)
+		fmt.Println("║ Curso:  ", c.Primero.Tutor.Curso)
+		fmt.Println("║ Nota:   ", c.Primero.Tutor.Nota)
+		fmt.Println("║ Prioridad: ", c.Primero.Prioridad)
 		if c.Primero.Siguiente != nil {
-			fmt.Println("Siguiente: ", c.Primero.Siguiente.Tutor.Carnet)
+			fmt.Println("║ Siguiente: ", c.Primero.Siguiente.Tutor.Carnet)
 		} else {
-			fmt.Print("Siguiente: No hay mas tutores por evaluar")
+			fmt.Println("║ Siguiente: No hay más tutores por evaluar")
 		}
+		fmt.Println("╚════════════════════════════════════════════╝")
 	}
 }

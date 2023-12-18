@@ -1,6 +1,10 @@
 package Listas
 
-import "fmt"
+import (
+	"EDD_VD2S2023_PY_202106651/Estructuras/GenerarArchivos"
+	"fmt"
+	"strconv"
+)
 
 type ListaDobleCircular struct {
 	Inicio   *NodoListaCircular
@@ -56,13 +60,21 @@ func (l *ListaDobleCircular) Agregar(carnet int, nombre string, curso string, no
 }
 
 func (l *ListaDobleCircular) Mostrar() {
+	fmt.Print("\033[H\033[2J")
+	fmt.Println("╔════════════════════════════════════════════════════════════════════════════════════════╗")
+	fmt.Println("║                               Lista de Tutores Disponibles                             ║")
+	fmt.Println("╠════════════════════════════════════════════════════════════════════════════════════════╣")
+
 	aux := l.Inicio
 	contador := 1
+
 	for contador <= l.Longitud {
-		fmt.Println("Código del curso:", "[", aux.Tutor.Curso, "]", "-> Nombre del tutor:", "[", aux.Tutor.Nombre, "]")
+		fmt.Println("║ Código del curso: [", aux.Tutor.Curso, "] -> Nombre del tutor: [", aux.Tutor.Nombre, "] ║")
 		aux = aux.Siguiente
 		contador++
 	}
+
+	fmt.Println("╚════════════════════════════════════════════════════════════════════════════════════════╝")
 }
 
 func (l *ListaDobleCircular) Buscar(curso string) bool {
@@ -123,4 +135,30 @@ func (l *ListaDobleCircular) Eliminar(carnet int) {
 	}
 
 	fmt.Println("No se encontró al tutor con carnet:", carnet)
+}
+
+func (l *ListaDoble) ReporteListaDobleCircular() {
+	nombreArchivo := "./listadoblecircular.dot"
+	nombreImagen := "./listadoblecircular.jpg"
+	texto := "digraph lista{\n"
+	texto += "rankdir=LR;\n"
+	texto += "node[shape = record];\n"
+	aux := l.Inicio
+	contador := 0
+	for i := 0; i < l.Longitud; i++ {
+		texto += "nodo" + strconv.Itoa(i) + "[label=\"" + strconv.Itoa(aux.Alumno.Carnet) + "\"];\n"
+		aux = aux.Siguiente
+	}
+	for i := 0; i < l.Longitud-1; i++ {
+		c := i + 1
+		texto += "nodo" + strconv.Itoa(i) + "->nodo" + strconv.Itoa(c) + ";\n"
+		texto += "nodo" + strconv.Itoa(c) + "->nodo" + strconv.Itoa(i) + ";\n"
+		contador = c
+	}
+	texto += "nodo" + strconv.Itoa(contador) + "->nodo0 \n"
+	texto += "nodo0 -> " + "nodo" + strconv.Itoa(contador) + "\n"
+	texto += "}"
+	GenerarArchivos.CrearArchivo(nombreArchivo)
+	GenerarArchivos.EscribirArchivo(texto, nombreArchivo)
+	GenerarArchivos.Ejecutar(nombreImagen, nombreArchivo)
 }
