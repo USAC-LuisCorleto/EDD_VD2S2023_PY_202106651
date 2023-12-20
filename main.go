@@ -235,7 +235,6 @@ func ControlEstudiantes() {
 
 	for !salir {
 		colaPrioridad.OrdenarPorPrioridad()
-		colaPrioridad.OrdenarPorNota()
 		colaPrioridad.Primero_Cola()
 		fmt.Println("[1]. Aceptar")
 		fmt.Println("[2]. Rechazar")
